@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/Calc/Calculate}">
+    <div>
+        <input name="Data1" type="number" step="0.001"  th:value="${Param1}">
+        <select name="Act">
+            <option th:each="ActType: ${ActTypes}" th:value="${ActType.getValue()}" th:text="${ActType.getValue()}" th:selected="${ActType.getValue() == Act}">
+        </select>
+        <input name="Data2" type="number" step="0.001"  th:value="${Param2}">
+        <div>
+            <input type="submit" value="Посчитать">
+        </div>
+    </div>
+</form>
+<div>
+    <a href="/calc">Back</a>
+</div>
+</body>
+</html>
