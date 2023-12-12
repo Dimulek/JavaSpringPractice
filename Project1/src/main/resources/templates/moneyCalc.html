@@ -13,10 +13,10 @@
     </div>
     <div>Из
       <select name="From">
-        <option th:each="MoneyValue: ${MoneyName}" th:value="${MoneyValue.getKey().name()}" th:text="${MoneyValue.getValue()}" th:selected="${MoneyValue.getKey() == FirstSelect}">
+        <option th:each="MoneyValue: ${MoneyName}" th:value="${MoneyValue.getValue()}" th:text="${MoneyValue.getValue()}" th:selected="${MoneyValue.getKey() == FirstSelect}">
       </select>В
       <select name="To">
-        <option th:each="MoneyValue: ${MoneyName}" th:value="${MoneyValue.getKey().name()}" th:text="${MoneyValue.getValue()}" th:selected="${MoneyValue.getKey() == SecondSelect}">
+        <option th:each="MoneyValue: ${MoneyName}" th:value="${MoneyValue.getValue()}" th:text="${MoneyValue.getValue()}" th:selected="${MoneyValue.getKey() == SecondSelect}">
       </select>
     </div>
     <input type="submit" value="Посчитать">
