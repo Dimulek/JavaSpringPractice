@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/Display">
+          <button>
+            Go Back
+          </button>
+        </a>
+    </div>
+    Update <a th:text="${ClassIndex}"></a>
+    <hr>
+    <form th:method="POST" th:action="@{'/Display/Update/Put' + ${ClassIndex}}">
+        <div th:each="key : ${Keys}">
+            <a th:text="${key}"></a> = <input th:name="${key}" type="text" th:value="${Data.get(key)}">
+        </div>
+        <input type="submit" value="Обновить">
+    </form>
+</body>
+</html>

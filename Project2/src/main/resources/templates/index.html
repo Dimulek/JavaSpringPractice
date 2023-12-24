@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Main Page</h1>
+    <form th:method="POST" th:action="@{/Display}">
+        <div>
+            <button name="display_name" th:value="Class1">Display Class1</button>
+        </div>
+        <div>
+            <button name="display_name" th:value="Class2">Display Class2</button>
+        </div>
+        <div>
+            <button name="display_name" th:value="Class3">Display Class3</button>
+        </div>
+        <div>
+            <button name="display_name" th:value="Class4">Display Class4</button>
+        </div>
+        <div>
+            <button name="display_name" th:value="Class5">Display Class5</button>
+        </div>
+    </form>
+</body>
+</html>

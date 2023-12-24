@@ -12,5 +12,11 @@
 <div>
     <a href="/Money">MoneyCalc</a>
 </div>
+
+<div>
+    <select>
+        <option th:each="element: ${Data}" th:value="${element.line1}" th:text="${element.line1}" th:selected="${element.line1 == 1}">
+    </select>
+</div>
 </body>
 </html>

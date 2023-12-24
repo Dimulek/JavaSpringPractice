@@ -7,6 +7,8 @@
 <body>
 
   <h1>Money calculation <b th:text="${Num}" /></h1>
+
+
   <form th:method="POST" th:action="@{/Money/Calculate}">
     <div>
       <input name="Data" type="number" step="0.001"  th:value="${Value}"> = <b th:text="${Result}"/>
@@ -21,6 +23,10 @@
     </div>
     <input type="submit" value="Посчитать">
   </form>
+
+
+
+
   <div>
     <a href="/Money/Add">add</a>
   </div>

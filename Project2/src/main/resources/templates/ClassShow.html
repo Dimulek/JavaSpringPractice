@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GridPositions.css">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/">
+            <button>
+                Go Back
+            </button>
+        </a>
+    </div>
+    DISPLAY <a th:text="${ClassIndex}"></a>
+    <hr>
+    <form th:method="POST" th:action="@{'/Display/Post' + ${ClassIndex}}">
+        <div th:each="key : ${Keys}">
+            <a th:text="${key}"></a>
+            <input th:name="${key}" type="text">
+        </div>
+        <div>
+            <input type="submit" value="Добавить">
+        </div>
+    </form>
+    <hr>
+
+    <div th:each="element: ${Data}" class="grid-container">
+        <div class="header">
+            id = <a th:text="${element.GetID()}"/>
+        </div>
+        <div class="action">
+            <form th:method="DELETE" th:action="@{/Display/Delete/{id} (id = ${element.GetID()})}">
+                <input type="submit" value="Удалить">
+            </form>
+            <form th:method="PUT" th:action="@{/Display/Update/{id} (id = ${element.GetID()})}">
+                <input type="submit" value="Обновить">
+            </form>
+        </div>
+        <div class="body">
+            <div th:each="key : ${Keys}">
+                <a th:text="${key}"></a> = "<a th:text="${element.GetKeyValue().get(key)}"/>"
+            </div>
+        </div>
+    </div>
+</body>
+</html>
