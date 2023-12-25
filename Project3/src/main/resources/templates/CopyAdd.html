@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/Copy">
+            <button>
+                Вернуться
+            </button>
+        </a>
+    </div>
+    <hr>
+    <h1>Добавление книги</h1>
+    <hr>
+
+    <form th:action="@{/Copy/Post}" method="post" th:object="${copy}">
+        <div>
+            Стоимость =
+            <input type="number" step="0.001" name="cost">
+            <div style="color: red" th:if="${#fields.hasErrors('cost')}"
+                 th:errors="*{cost}"></div>
+        </div>
+        <div>
+            Книги =
+            <label>
+                <select  name="book_id">
+                    <option th:each="book : ${Books}" th:value="${book.getId()}" th:text="${book.getName()}"></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            Публикатор =
+            <label>
+                <select  name="publisher_id">
+                    <option th:each="publisher : ${Publishers}" th:value="${publisher.getId()}" th:text="${publisher.getName()}"></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <input type="submit" value="Добавить">
+        </div>
+    </form>
+
+</body>
+</html>

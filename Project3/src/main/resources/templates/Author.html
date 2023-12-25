@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GridPositions.css">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/">
+            <button>
+                Вернуться
+            </button>
+        </a>
+    </div>
+    <hr>
+    <h1>Автры</h1>
+    <hr>
+
+    <form method="GET" th:action="${'/Author/Post'}">
+        <input type="submit" value="Добавить">
+    </form>
+
+    <form method="POST" th:action="${'/Author'}">
+        <input name="search" type="text" th:value="${search_line}">
+        <input type="submit" value="Поиск">
+    </form>
+
+    <div th:each="author: ${Authors}" class="grid-container">
+        <div class="header">
+            Код = <a th:text="${author.getId()}"/>
+        </div>
+        <div class="action">
+            <form th:method="POST" th:action="@{/Author/Delete/{id} (id = ${author.getId()})}">
+                <input type="submit" value="Удалить">
+            </form>
+            <form th:method="Get" th:action="@{/Author/Update/{id} (id = ${author.getId()})}">
+                <input type="submit" value="Обновить">
+            </form>
+        </div>
+        <div class="body">
+            <div>
+                Псевдоним автора = "<a th:text="${author.getAlias()}"/>"
+            </div>
+        </div>
+    </div>
+</body>
+</html>

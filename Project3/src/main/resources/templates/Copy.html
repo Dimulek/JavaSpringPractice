@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GridPositions.css">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/">
+            <button>
+                Вернуться
+            </button>
+        </a>
+    </div>
+    <hr>
+    <h1>Экземпляры книг</h1>
+    <hr>
+
+    <form method="GET" th:action="${'/Copy/Post'}">
+        <input type="submit" value="Добавить">
+    </form>
+
+    <div th:each="copy: ${Copies}" class="grid-container">
+        <div class="header">
+            Код = <a th:text="${copy.getId()}"/>
+        </div>
+        <div class="action">
+            <form th:method="POST" th:action="@{/Copy/Delete/{id} (id = ${copy.getId()})}">
+                <input type="submit" value="Удалить">
+            </form>
+            <form th:method="Get" th:action="@{/Copy/Update/{id} (id = ${copy.getId()})}">
+                <input type="submit" value="Обновить">
+            </form>
+        </div>
+        <div class="body">
+            <div>
+                Навзание книги = "<a th:text="${copy.getBook().getName()}"></a>"
+            </div>
+            <div>
+                Автор = "<a th:text="${copy.getBook().getAuthor().getAlias()}"></a>" (<a th:text="${copy.getBook().getAuthor().getId()}"></a>)
+            </div>
+            <hr>
+            <div>
+                Жанры:
+                <span th:each="genre : ${copy.getBook().getGenres()}">
+                        <a th:text="${genre.getName()}"></a> (<a th:text="${genre.getId()}"></a>),
+                    </span>
+            </div>
+            <hr>
+            <div>
+                Описание = "<a th:text="${copy.getBook().getDescription()}"> </a>"
+            </div>
+            <hr>
+            <div>
+                Стоимость = <a th:text="${copy.getCost()}"></a>
+            </div>
+            <div>
+                Публикатор = "<a th:text="${copy.getPublisher().getName()}"></a>" (<a th:text="${copy.getPublisher().getId()}"></a>)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Главная страница</h1>
+
+    <div>
+        <form th:method="GET" th:action="@{/Author}">
+            <div>
+                <button>Авторы</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form th:method="GET" th:action="@{/Publisher}">
+            <div>
+                <button>Публикаторы</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form th:method="GET" th:action="@{/Genre}">
+            <div>
+                <button>Жанры</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form th:method="GET" th:action="@{/Book}">
+            <div>
+                <button>Книги</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form th:method="GET" th:action="@{/Copy}">
+            <div>
+                <button>Экземпляры книг</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

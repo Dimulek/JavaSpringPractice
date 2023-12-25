@@ -1,0 +1,21 @@
+.header { grid-area: header; }
+.action { grid-area: action; }
+.body { grid-area: body; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'header empty1 empty1 empty1 empty1 action'
+    'body body body body body empty2';
+    gap: 10px;
+    background: #eeeeee;
+    padding: 10px;
+    margin: 10px;
+}
+
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 20px 0;
+    font-size: 20px;
+}

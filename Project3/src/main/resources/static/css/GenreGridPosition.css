@@ -1,0 +1,19 @@
+.body { grid-area: body; }
+.action { grid-area: action; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'body empty1 action action';
+    gap: 10px;
+    background: #eeeeee;
+    padding: 5px;
+    margin: 10px;
+}
+
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 10px 5px;
+    font-size: 20px;
+}

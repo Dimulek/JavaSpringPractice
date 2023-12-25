@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GridPositions.css">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/">
+            <button>
+                Вернуться
+            </button>
+        </a>
+    </div>
+
+    <hr>
+    <h1>Жанры</h1>
+    <hr>
+
+    <form method="GET" th:action="${'/Genre/Post'}">
+        <input type="submit" value="Добавить">
+    </form>
+
+    <form method="POST" th:action="${'/Genre'}">
+        <input name="search" type="text" th:value="${search_line}">
+        <input type="submit" value="Поиск">
+    </form>
+
+    <div th:each="genre: ${Genres}" class="grid-container">
+        <div class="header">
+            Код = <a th:text="${genre.getId()}"/>
+        </div>
+        <div class="action">
+            <form th:method="POST" th:action="@{/Genre/Delete/{id} (id = ${genre.getId()})}">
+                <input type="submit" value="Удалить">
+            </form>
+            <form th:method="Get" th:action="@{/Genre/Update/{id} (id = ${genre.getId()})}">
+                <input type="submit" value="Обновить">
+            </form>
+        </div>
+        <div class="body">
+            <div>
+                Название жанра = "<a th:text="${genre.getName()}"/>"
+            </div>
+        </div>
+    </div>
+</body>
+</html>

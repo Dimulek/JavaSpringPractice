@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GenreGridPosition.css">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a href="/Book">
+            <button>
+                Вернуться
+            </button>
+        </a>
+    </div>
+    <hr>
+    <h1>Обновление книги</h1>
+    <hr>
+
+    <div class="grid-container">
+        <div class="body">
+            <form method="post" th:object="${book}">
+                <div>
+                    Название книги =
+                    <input type="text" name="name" th:field="*{name}" th:value="${book.getName()}">
+                    <div style="color: red" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
+                </div>
+                <div>
+                    Описание =
+                    <input type="text" name="description" th:field="*{description}" th:value="${book.getDescription()}">
+                    <div style="color: red" th:if="${#fields.hasErrors('description')}"
+                         th:errors="*{description}"></div>
+                </div>
+                <div>
+                    Авторы =
+                    <label>
+                        <select  name="author_id" th:field="*{author}">
+                            <option th:each="author : ${Authors}" th:value="${author.getId()}" th:text="${author.getAlias()}" th:selected="${author.getAlias() == book.getAuthor().getAlias()}"></option>
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <input type="submit" value="Изменить книгу">
+                </div>
+            </form>
+            <hr>
+            <form method="post" th:action="@{/Book/Update/{id}/AddGenre (id = ${book.getId()})}">
+                <div>
+                    Жанры =
+                    <label>
+                        <select name="genre_id">
+                            <option th:each="genre : ${Genres}" th:value="${genre.getId()}" th:text="${genre.getName()}"></option>
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <input type="submit" value="Добавить жанр">
+                </div>
+            </form>
+        </div>
+        <div class="action">
+            Жанры книги
+            <div th:each="book_genre : ${book.getGenres()}">
+                <form method="post" th:action="@{/Book/Update/{id_book}/DeleteGenre/{id_genre}
+                    (id_book = ${book.getId()}, id_genre = ${book_genre.getId()})}">
+                    <a th:text="${book_genre.getName()}"></a>
+                     (<a th:text="${book_genre.getId()}"></a>)
+                   <input type="submit" value="Удалить">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
