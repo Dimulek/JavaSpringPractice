@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name = "Author")
@@ -18,6 +20,9 @@ public class Author {
     @NotBlank(message = "Введите псевдоним автора")
     @Length(min = 2)
     private String  alias;
+
+    @OneToMany(mappedBy = "author")
+    private Set<Book> books;
 
     public Author() {}
 

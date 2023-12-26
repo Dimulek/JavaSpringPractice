@@ -22,6 +22,9 @@ public class Genre {
     @Size(max=2, message = "Название жанра не может быть больше 100 букв")
     private String name;
 
+    @ManyToMany(mappedBy = "genres")
+    private Set<Book> books;
+
     public Genre() {}
 
     public Long getId() {

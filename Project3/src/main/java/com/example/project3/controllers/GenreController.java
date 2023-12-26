@@ -22,7 +22,8 @@ public class GenreController {
 
     @GetMapping()
     public String Genre(Model model){
-        model.addAttribute("Genres", genreRepository.findGenreByNameContains(search_line));
+        Iterable<Genre> buff = genreRepository.findGenreByNameContains(search_line);
+        model.addAttribute("Genres", buff);
         model.addAttribute("search_line", search_line);
         return "Genre";
     }
