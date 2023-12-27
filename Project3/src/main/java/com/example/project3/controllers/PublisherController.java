@@ -1,10 +1,9 @@
 package com.example.project3.controllers;
 
-import com.example.project3.Models.Author;
 import com.example.project3.Models.Publisher;
-import com.example.project3.repo.AuthorRepository;
 import com.example.project3.repo.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +13,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/Publisher")
+@PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('LIB')")
 public class PublisherController {
     @Autowired
     private PublisherRepository publisherRepository;
@@ -41,7 +41,7 @@ public class PublisherController {
     }
 
     @PostMapping("/Post")
-    public String PublisherPost(@ModelAttribute("publisher") Publisher new_model,
+    public String PublisherPost(@ModelAttribute("publisher") @Valid Publisher new_model,
                                 BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {
             return "PublisherAdd";

@@ -1,9 +1,9 @@
 package com.example.project3.Models;
 
-import jakarta.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "Publisher")
@@ -14,8 +14,7 @@ public class Publisher {
 
     @Column(length = 100, unique = true)
     @NotBlank(message = "Введите Название публикатора")
-    @Size(min=2, message = "Название публикатора не может быть меньше 2 букв")
-    @Size(max=100, message = "Название публикатора не может быть больше 100 букв")
+    @Length(min = 2)
     private String  name;
 
     public Publisher() {

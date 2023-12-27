@@ -1,10 +1,9 @@
 package com.example.project3.controllers;
 
 import com.example.project3.Models.Genre;
-import com.example.project3.Models.Publisher;
 import com.example.project3.repo.GenreRepository;
-import com.example.project3.repo.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +13,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/Genre")
+@PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('CATALOG')")
 public class GenreController {
     @Autowired
     private GenreRepository genreRepository;
@@ -41,7 +41,7 @@ public class GenreController {
     }
 
     @PostMapping("/Post")
-    public String GenrePost(@ModelAttribute("genre") Genre new_model,
+    public String GenrePost(@ModelAttribute("genre") @Valid Genre new_model,
                             BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {
             return "PublisherAdd";

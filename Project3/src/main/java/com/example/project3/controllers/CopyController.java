@@ -1,12 +1,11 @@
 package com.example.project3.controllers;
 
-import com.example.project3.Models.Author;
 import com.example.project3.Models.Copy;
-import com.example.project3.repo.AuthorRepository;
 import com.example.project3.repo.BookRepository;
 import com.example.project3.repo.CopyRepository;
 import com.example.project3.repo.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/Copy")
+@PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('LIB')")
 public class CopyController {
     @Autowired
     private CopyRepository copyRepository;
@@ -47,6 +47,8 @@ public class CopyController {
                            @RequestParam("book_id") long book_id,
                            @RequestParam("publisher_id") long publisher_id, Model model){
         if(bindingResult.hasErrors()) {
+            model.addAttribute("Books", bookRepository.findAll());
+            model.addAttribute("Publishers", publisherRepository.findAll());
             return "CopyAdd";
         }
         copy.setBook(bookRepository.findBookByIdEquals(book_id));
@@ -70,6 +72,9 @@ public class CopyController {
                              @RequestParam("publisher_id") long publisher_id,
                              Model model, @PathVariable("id") long id){
         if(bindingResult.hasErrors()) {
+            model.addAttribute("copy", copyRepository.findCopyByIdEquals(id));
+            model.addAttribute("Books", bookRepository.findAll());
+            model.addAttribute("Publishers", publisherRepository.findAll());
             return "CopyUpdate";
         }
         copy.setId(id);

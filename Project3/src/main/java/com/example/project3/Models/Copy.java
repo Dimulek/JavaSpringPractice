@@ -1,7 +1,6 @@
 package com.example.project3.Models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
@@ -17,12 +16,10 @@ public class Copy {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    @NotNull
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    @NotNull
     private Publisher publisher;
 
     public Copy() {

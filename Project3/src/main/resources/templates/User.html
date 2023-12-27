@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GridPositions.css">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="/">
+        <button>
+            Вернуться
+        </button>
+    </a>
+</div>
+
+<hr>
+<h1>Публикаторы</h1>
+<hr>
+
+<form method="GET" th:action="${'/User/Post'}">
+    <input type="submit" value="Добавить">
+</form>
+
+<div th:each="user: ${Users}" class="grid-container">
+    <div class="header">
+        Код = <a th:text="${user.getId()}"/>
+    </div>
+    <div class="action">
+        <form th:method="Get" th:action="@{/User/Update/{id} (id = ${user.getId()})}">
+            <input type="submit" value="Обновить">
+        </form>
+    </div>
+    <div class="body">
+        <div>
+            Логин = "<a th:text="${user.getUsername()}"/>"
+        </div>
+    </div>
+</div>
+</body>
+</html>

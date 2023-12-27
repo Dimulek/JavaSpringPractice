@@ -1,12 +1,10 @@
 package com.example.project3.Models;
 
-import jakarta.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 
-import java.util.HashSet;
-import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import java.util.Set;
 
 @Entity
@@ -18,8 +16,7 @@ public class Genre {
 
     @Column(length = 100, unique = true)
     @NotBlank(message = "Введите название жанра")
-    @Size(min=2, message = "Название жанра не может быть меньше 2 букв")
-    @Size(max=2, message = "Название жанра не может быть больше 100 букв")
+    @Length(min = 2)
     private String name;
 
     @ManyToMany(mappedBy = "genres")

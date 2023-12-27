@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/GenreGridPosition.css">
+    <title>Title</title>
+</head>
+<body>
+<body>
+<div>
+    <a href="/User">
+        <button>
+            Вернуться
+        </button>
+    </a>
+</div>
+<hr>
+<h1>Обновление книги</h1>
+<hr>
+
+<div class="grid-container">
+    <div class="body">
+        <div>
+            Код = <a th:text="${user.getId()}"></a>
+        </div>
+        <div>
+            Логин = <a th:text="${user.getUsername()}"></a>
+        </div>
+        <hr>
+        <form method="post" th:action="@{/User/Update/{id}/AddRole (id = ${user.getId()})}">
+            <div>
+                Роли =
+                <label>
+                    <select name="role_name">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <input type="submit" value="Добавить роль">
+            </div>
+        </form>
+    </div>
+    <div class="action">
+        Роли пользователя
+        <div th:each="role : ${user.getRoles()}">
+            <form method="post" th:action="@{/User/Update/{id}/DeleteRole/{roleName}
+                    (id = ${user.getId()}, roleName = ${role.getAuthority()})}">
+                <a th:text="${rev_roles.get(role)}"></a>
+                <input type="submit" value="Удалить">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

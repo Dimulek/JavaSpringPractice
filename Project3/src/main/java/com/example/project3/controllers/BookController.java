@@ -1,12 +1,11 @@
 package com.example.project3.controllers;
 
-import com.example.project3.Models.Author;
 import com.example.project3.Models.Book;
-import com.example.project3.Models.Genre;
 import com.example.project3.repo.AuthorRepository;
 import com.example.project3.repo.BookRepository;
 import com.example.project3.repo.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/Book")
+@PreAuthorize("hasAnyAuthority('ADMIN') or hasAnyAuthority('CATALOG')")
 public class BookController {
     @Autowired
     private AuthorRepository authorRepository;
@@ -28,7 +28,8 @@ public class BookController {
 
     @GetMapping()
     public String Book(Model model){
-        model.addAttribute("Books", bookRepository.findBooksByNameContains(search_line));
+        Iterable<Book> books = bookRepository.findBooksByNameContains(search_line);
+        model.addAttribute("Books", books);
         model.addAttribute("search_line", search_line);
         return "Book";
     }
@@ -47,10 +48,11 @@ public class BookController {
     }
 
     @PostMapping("/Post")
-    public String BookPost(@ModelAttribute("book") Book new_model,
+    public String BookPost(@ModelAttribute("book") @Valid Book new_model,
                            BindingResult bindingResult,
                            @RequestParam("author_id") long author_id, Model model){
         if(bindingResult.hasErrors()) {
+            model.addAttribute("Author", authorRepository.findAll());
             return "BookAdd";
         }
         new_model.setAuthor(authorRepository.findAuthorByIdEquals(author_id));
@@ -73,6 +75,10 @@ public class BookController {
                              BindingResult bindingResult, Model model,
                              @PathVariable("id") long id){
         if(bindingResult.hasErrors()) {
+            var buff = bookRepository.findBookByIdEquals(id);
+            model.addAttribute("book", buff);
+            model.addAttribute("Authors", authorRepository.findAll());
+            model.addAttribute("Genres", genreRepository.findAll());
             return "BookUpdate";
         }
         book.setId(id);

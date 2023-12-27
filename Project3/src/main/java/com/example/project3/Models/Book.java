@@ -1,14 +1,10 @@
 package com.example.project3.Models;
 
-import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,14 +25,13 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @NotNull
     private Author author;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable (name="Book_Genre",
             joinColumns=@JoinColumn (name="book_id", referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="genre_id", referencedColumnName="id"))
-    private Set<Genre> genres = new HashSet<>();
+    private Set<Genre> genres;
 
     public Book() {
     }
