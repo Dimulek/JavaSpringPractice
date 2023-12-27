@@ -15,12 +15,8 @@
 </div>
 
 <hr>
-<h1>Публикаторы</h1>
+<h1>Пользователи</h1>
 <hr>
-
-<form method="GET" th:action="${'/User/Post'}">
-    <input type="submit" value="Добавить">
-</form>
 
 <div th:each="user: ${Users}" class="grid-container">
     <div class="header">
